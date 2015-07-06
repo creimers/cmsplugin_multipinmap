@@ -73,23 +73,10 @@ class MultipinmapTestCase(TestCase, BaseCMSTestCase):
            city=city
         )
         self.assertRaises(ValidationError, multipinmap_plugin.full_clean)
-        #pin1 = models.Pin(
-            #name="greenpeace",
-            #street=street,
-            #postal_code=postal_code,
-            #city=city,
-            #map_plugin=multipinmap_plugin
-        #)
-        #pin1.save()
-
-        #self.assertTrue(pin1.__str__() == 'greenpeace')
-        #self.assertTrue(
-            #models.Map.objects.filter(pk=multipinmap_plugin.pk).exists()
-        #)
 
     def test_render_page(self):
         self.test_add_multipinmap_plugin_google()
         api.publish_page(self.page, self.superuser, self.language)
         response = self.client.get(self.page.get_absolute_url())
 
-        self.assertTrue("id=map" in response.rendered_content)
+        self.assertTrue("map" in response.rendered_content)
