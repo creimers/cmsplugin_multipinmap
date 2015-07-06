@@ -72,7 +72,7 @@ class MultipinmapTestCase(TestCase, BaseCMSTestCase):
            postal_code=postal_code,
            city=city
         )
-        self.assertRaises(ValidationError, multipinmap_plugin.full_clean))
+        self.assertRaises(ValidationError, multipinmap_plugin.full_clean)
         #pin1 = models.Pin(
             #name="greenpeace",
             #street=street,
