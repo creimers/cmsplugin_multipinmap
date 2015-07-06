@@ -7,7 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('multipinmap', '0002_auto_20150706_1013'),
+        ('cmsplugin_multipinmap', '0002_auto_20150706_1013'),
     ]
 
     operations = [
