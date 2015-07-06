@@ -1,0 +1,3 @@
+include LICENSE.txt
+include README.md
+recursive-include cmsplugin_simpleslider *.html *.png *.gif *.js *jpg *jpeg *svg *py *css *po *mo *woff *ttf *otf *eot *.map
