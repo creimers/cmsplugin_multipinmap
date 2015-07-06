@@ -1,0 +1,5 @@
+[run]
+source = cmsplugin_multipinmap
+
+[report]
+omit = ../*tests*
