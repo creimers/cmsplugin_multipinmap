@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
                 ('city', models.CharField(max_length=100, verbose_name='city')),
                 ('lat', models.DecimalField(null=True, verbose_name='lat', max_digits=10, decimal_places=6, blank=True)),
                 ('lng', models.DecimalField(null=True, verbose_name='lng', max_digits=10, decimal_places=6, blank=True)),
-                ('map_plugin', models.ForeignKey(related_name='pins', to='multipinmap.Map')),
+                ('map_plugin', models.ForeignKey(related_name='pins', to='cmsplugin_multipinmap.Map')),
             ],
             options={
             },
