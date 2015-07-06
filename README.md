@@ -1,5 +1,9 @@
 [![Build Status](https://travis-ci.org/creimers/cmsplugin_multipinmap.svg?branch=master)](https://travis-ci.org/creimers/cmsplugin_multipinmap)
 [![Coverage Status](https://coveralls.io/repos/creimers/cmsplugin_multipinmap/badge.svg?branch=master)](https://coveralls.io/r/creimers/cmsplugin_multipinmap?branch=master)
+
+[![Latest Version](https://pypi.python.org/pypi/cmsplugin_multipinmap)](https://img.shields.io/pypi/v/cmsplugin_multipinmap.svg)
+[![Supported Python versions](https://pypi.python.org/pypi/cmsplugin_multipinmap)](https://img.shields.io/pypi/pyversions/cmsplugin_multipinmap.svg)
+[![Status](https://pypi.python.org/pypi/cmsplugin_multipinmap)](https://img.shields.io/pypi/status/cmsplugin_multipinmap.svg)
 # djangocms multi pin map plugin
 
 A djangocms map plugin that can display multiple pins. Avaliable as google maps or [leaflet](http://leafletjs.com/) style.
