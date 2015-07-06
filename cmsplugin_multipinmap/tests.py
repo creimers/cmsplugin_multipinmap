@@ -1,11 +1,13 @@
 from django.test import TestCase
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 from cms import api
 from cms.models import CMSPlugin
 from cms.test_utils.testcases import BaseCMSTestCase
 from cms.utils import get_cms_setting
+
 
 from . import models
 from . import cms_plugins
@@ -28,7 +30,7 @@ class MultipinmapTestCase(TestCase, BaseCMSTestCase):
     def create_superuser(self):
         return User.objects.create_superuser(self.su_username, 'email@example.com', self.su_password)
 
-    def test_add_multipinmap_plugin(self):
+    def test_add_multipinmap_plugin_google(self):
         street = 'Hongkongstrasse 10'
         postal_code = '20457'
         city = 'Hamburg'
@@ -55,3 +57,32 @@ class MultipinmapTestCase(TestCase, BaseCMSTestCase):
         self.assertTrue(
             models.Map.objects.filter(pk=multipinmap_plugin.pk).exists()
         )
+
+    def test_add_multipinmap_plugin_leaflet_error(self):
+        street = 'Hongkongstrasse 10'
+        postal_code = '20457'
+        city = 'Hamburg'
+        multipinmap_plugin = api.add_plugin(
+           self.placeholder,
+           cms_plugins.MapPlugin,
+           self.language,
+           name='test',
+           style='leaflet',
+           street=street,
+           postal_code=postal_code,
+           city=city
+        )
+        self.assertRaises(ValidationError, multipinmap_plugin.full_clean))
+        #pin1 = models.Pin(
+            #name="greenpeace",
+            #street=street,
+            #postal_code=postal_code,
+            #city=city,
+            #map_plugin=multipinmap_plugin
+        #)
+        #pin1.save()
+
+        #self.assertTrue(pin1.__str__() == 'greenpeace')
+        #self.assertTrue(
+            #models.Map.objects.filter(pk=multipinmap_plugin.pk).exists()
+        #)
