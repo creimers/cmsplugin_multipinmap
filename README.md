@@ -1,6 +1,6 @@
 # djangocms multi pin map plugin
 
-A djangocms map plugin that can display multiple pins. Avaliable as google maps or [leaflet](http://leafletjs.com/) sytle.
+A djangocms map plugin that can display multiple pins. Avaliable as google maps or [leaflet](http://leafletjs.com/) style.
 
 ## Installation
 
