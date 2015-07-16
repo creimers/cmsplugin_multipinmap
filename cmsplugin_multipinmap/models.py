@@ -99,7 +99,7 @@ class Map(CMSPlugin):
     def copy_relations(self, oldinstance):
         for pin in oldinstance.pins.all():
             pin.pk = None
-            pin.map = self
+            pin.map_plugin = self
             pin.save()
 
     def __str__(self):
