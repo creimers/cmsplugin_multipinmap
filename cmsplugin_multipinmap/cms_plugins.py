@@ -19,7 +19,7 @@ class PinInline(admin.StackedInline):
 class MapPlugin(CMSPluginBase):
     model = Map
     name = _("Multipin Map")
-    render_template = "multipinmap/google.html"
+    render_template = "cmsplugin_multipinmap/google.html"
     inlines = [PinInline, ]
     exclude = ['lat', 'lng']
 
@@ -29,7 +29,7 @@ class MapPlugin(CMSPluginBase):
                 'leaflet': 'leaflet.html',
         }
 
-        self.render_template = 'multipinmap/' + template_choices[instance.style]
+        self.render_template = 'cmsplugin_multipinmap/' + template_choices[instance.style]
 
         context.update({
             'pins': instance.map.pins.all(),
