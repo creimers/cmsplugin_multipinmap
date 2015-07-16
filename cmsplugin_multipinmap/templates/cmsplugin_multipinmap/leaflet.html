@@ -1,4 +1,4 @@
-{% load sekizai_tags %}
+{% load cms_tags sekizai_tags %}
 
 {% addtoblock "css" %}
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
@@ -12,6 +12,38 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-providers/1.1.1/leaflet-providers.js"></script>
 
 <script>
+  var greenIcon = L.icon({
+    iconUrl: "{{STATIC_URL}}cmsplugin_multipinmap/img/marker-icon-green.png",
+    shadowUrl: "{{STATIC_URL}}cmsplugin_multipinmap/img/marker-shadow.png",
+    iconAnchor:   [11, 41],
+    shadowAnchor: [11, 41],
+    popupAnchor:  [0, -46]
+  });
+
+  var blueIcon = L.icon({
+    iconUrl: "{{STATIC_URL}}cmsplugin_multipinmap/img/marker-icon-blue.png",
+    shadowUrl: "{{STATIC_URL}}cmsplugin_multipinmap/img/marker-shadow.png",
+    iconAnchor:   [11, 41],
+    shadowAnchor: [11, 41],
+    popupAnchor:  [0, -46]
+  });
+
+  var redIcon = L.icon({
+    iconUrl: "{{STATIC_URL}}cmsplugin_multipinmap/img/marker-icon-red.png",
+    shadowUrl: "{{STATIC_URL}}cmsplugin_multipinmap/img/marker-shadow.png",
+    iconAnchor:   [11, 41],
+    shadowAnchor: [11, 41],
+    popupAnchor:  [0, -46]
+  });
+
+  var yellowIcon = L.icon({
+    iconUrl: "{{STATIC_URL}}cmsplugin_multipinmap/img/marker-icon-yellow.png",
+    shadowUrl: "{{STATIC_URL}}cmsplugin_multipinmap/img/marker-shadow.png",
+    iconAnchor:   [11, 41],
+    shadowAnchor: [11, 41],
+    popupAnchor:  [0, -46]
+  });
+
   var centerLat = {{map.lat|safe}};
   var centerLng = {{map.lng|safe}};
   var map = L.map('map').setView([centerLat, centerLng], {{map.zoom}});
@@ -25,8 +57,8 @@
 
   {% for pin in pins %}
 
-      var marker{{pin.pk}} = L.marker([{{pin.lat|safe}}, {{pin.lng|safe}}], {'id': {{pin.pk}} }).addTo(map);
-      marker{{pin.pk}}.bindPopup("<h5>{{pin.name|safe}}</h5><div>{{pin.street|safe}}</div><div>{{pin.postal_code}} {{pin.city}}</div>");
+    var marker{{pin.pk}} = L.marker([{{pin.lat|safe}}, {{pin.lng|safe}}], {'id': {{pin.pk}}, 'icon': {{pin.pin_color}}}).addTo(map);
+    marker{{pin.pk}}.bindPopup("<h5>{{pin.name|safe}}</h5><div>{{pin.street|safe}}</div><div>{{pin.postal_code}} {{pin.city}}</div>");
     
   {% endfor %}
 

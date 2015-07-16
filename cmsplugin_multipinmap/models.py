@@ -116,6 +116,19 @@ class Pin(models.Model):
     street = models.CharField(_('street'), max_length=100)
     postal_code = models.CharField(_('postal code'), max_length=10)
     city = models.CharField(_('city'), max_length=100)
+    COLOR_CHOICES = (
+        ('redIcon', _('red')),
+        ('blueIcon', _('blue')),
+        ('greenIcon', _('green')),
+        ('yellowIcon', _('yellow'))
+    )
+
+    pin_color = models.CharField(
+        max_length=20,
+        choices=COLOR_CHOICES,
+        help_text="Only works for leaflet"
+    )
+
     lat = models.DecimalField(
         _('lat'),
         null=True,
