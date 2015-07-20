@@ -8,7 +8,8 @@
 
 A djangocms map plugin that can display multiple pins. Avaliable as google maps or [leaflet](http://leafletjs.com/) style.
 
-![preview](preview.png)
+![preview](preview_leaflet.png)
+![preview](preview_google.png)
 
 ## Installation
 
