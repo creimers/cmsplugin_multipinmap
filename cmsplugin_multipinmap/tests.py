@@ -58,6 +58,61 @@ class MultipinmapTestCase(TestCase, BaseCMSTestCase):
             models.Map.objects.filter(pk=multipinmap_plugin.pk).exists()
         )
 
+    def test_add_multipinmap_plugin_google_wrong_pin(self):
+        street = 'Hongkongstrasse 10'
+        postal_code = '20457'
+        city = 'Hamburg'
+        multipinmap_plugin = api.add_plugin(
+           self.placeholder,
+           cms_plugins.MapPlugin,
+           self.language,
+           name='test',
+           style='google',
+           street=street,
+           postal_code=postal_code,
+           city=city
+        )
+        pin1 = models.Pin(
+            name="greenpeace",
+            street='Paul-Roosen-Strasse 999',
+            postal_code=postal_code,
+            city=city,
+            map_plugin=multipinmap_plugin
+        )
+        #pin1.save()
+
+        self.assertRaises(ValidationError, pin1.full_clean)
+
+    def test_add_multipinmap_plugin_leaflet(self):
+        street = 'Hongkongstrasse 10'
+        postal_code = '20457'
+        city = 'Hamburg'
+        multipinmap_plugin = api.add_plugin(
+           self.placeholder,
+           cms_plugins.MapPlugin,
+           self.language,
+           name='test',
+           style='leaflet',
+           mapbox_access_token='waddehaddedudeda',
+           mapbox_map_id='waddehaddedudeda',
+           street=street,
+           postal_code=postal_code,
+           city=city
+        )
+        pin1 = models.Pin(
+            name="greenpeace",
+            street=street,
+            postal_code=postal_code,
+            city=city,
+            map_plugin=multipinmap_plugin
+        )
+        pin1.save()
+
+        self.assertTrue(pin1.__str__() == 'greenpeace')
+        self.assertTrue(
+            models.Map.objects.filter(pk=multipinmap_plugin.pk).exists()
+        )
+
     def test_add_multipinmap_plugin_leaflet_error(self):
         street = 'Hongkongstrasse 10'
         postal_code = '20457'
