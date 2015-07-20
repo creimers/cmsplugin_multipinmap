@@ -54,6 +54,7 @@ class MultipinmapTestCase(TestCase, BaseCMSTestCase):
         pin1.save()
 
         self.assertTrue(pin1.__str__() == 'greenpeace')
+        self.assertTrue(multipinmap_plugin.__str__() == 'test')
         self.assertTrue(
             models.Map.objects.filter(pk=multipinmap_plugin.pk).exists()
         )
@@ -79,8 +80,6 @@ class MultipinmapTestCase(TestCase, BaseCMSTestCase):
             city=city,
             map_plugin=multipinmap_plugin
         )
-        #pin1.save()
-
         self.assertRaises(ValidationError, pin1.full_clean)
 
     def test_add_multipinmap_plugin_leaflet(self):
