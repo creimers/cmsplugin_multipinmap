@@ -16,12 +16,19 @@
     }
     var map = new google.maps.Map(mapCanvas, mapOptions);
     var infowindow = new google.maps.InfoWindow();
+    var iconMapping = {
+      'blueIcon': 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+      'redIcon': 'https://maps.google.com/mapfiles/ms/icons/red-dot.png',
+      'greenIcon': 'https://maps.google.com/mapfiles/ms/icons/green-dot.png',
+      'yellowIcon': 'https://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
+    };
 
     {% for pin in pins %}
       
         var marker{{pin.pk}} = new google.maps.Marker({
             position: new google.maps.LatLng({{pin.lat|safe}}, {{pin.lng|safe}}),
             map: map,
+            icon: iconMapping['{{pin.pin_color}}']
         });
 
 

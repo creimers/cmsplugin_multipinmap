@@ -126,7 +126,6 @@ class Pin(models.Model):
     pin_color = models.CharField(
         max_length=20,
         choices=COLOR_CHOICES,
-        help_text="Only works for leaflet"
     )
 
     lat = models.DecimalField(
