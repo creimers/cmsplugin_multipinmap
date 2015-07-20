@@ -74,6 +74,41 @@ class MultipinmapTestCase(TestCase, BaseCMSTestCase):
         )
         self.assertRaises(ValidationError, multipinmap_plugin.full_clean)
 
+    def test_add_multipinmap_plugin_leaflet_error_two(self):
+        street = 'Hongkongstrasse 10'
+        postal_code = '20457'
+        city = 'Hamburg'
+        multipinmap_plugin = api.add_plugin(
+           self.placeholder,
+           cms_plugins.MapPlugin,
+           self.language,
+           name='test',
+           style='leaflet',
+           mapbox_access_token='waddehaddedudeda',
+           street=street,
+           postal_code=postal_code,
+           city=city
+        )
+        self.assertRaises(ValidationError, multipinmap_plugin.full_clean)
+
+    def test_add_multipinmap_plugin_leaflet_error_three(self):
+        street = 'Miaumiau 10'
+        postal_code = '66666'
+        city = 'Hamburg'
+        multipinmap_plugin = api.add_plugin(
+           self.placeholder,
+           cms_plugins.MapPlugin,
+           self.language,
+           name='test',
+           style='leaflet',
+           mapbox_access_token='waddehaddedudeda',
+           mapbox_map_id='waddehaddedudeda',
+           street=street,
+           postal_code=postal_code,
+           city=city
+        )
+        self.assertRaises(ValidationError, multipinmap_plugin.full_clean)
+
     def test_render_page(self):
         self.test_add_multipinmap_plugin_google()
         api.publish_page(self.page, self.superuser, self.language)
