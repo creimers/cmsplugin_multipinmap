@@ -11,6 +11,8 @@ A djangocms map plugin that can display multiple pins. Avaliable as google maps 
 ![preview](preview_leaflet.png)
 ![preview](preview_google.png)
 
+Works with django 1.7 and 1.8, works with djangocms 3.0 and 3.1.
+
 ## Installation
 
 * ``pip install cmsplugin_multipinmap``
