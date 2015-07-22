@@ -44,8 +44,10 @@ class Map(CMSPlugin):
         help_text=_("height of the map in px."),
         default=400
     )
+    ZOOM_LEVELS = map(lambda c: (c, str(c)), range(22))
     zoom = models.IntegerField(
         _('zoom'),
+        choices=ZOOM_LEVELS,
         default=8
     )
     
