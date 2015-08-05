@@ -18,7 +18,7 @@ class Map(CMSPlugin):
 
     STYLE_CHOICES = (
         ('google', 'Google Maps'),
-        ('leaflet', 'Leaflet'),
+        ('mapbox', 'Mapbox'),
     )
     style = models.CharField(_('style'), max_length=25, choices=STYLE_CHOICES)
 
@@ -26,7 +26,7 @@ class Map(CMSPlugin):
         _('mapbox access token'),
         max_length=80,
         default=getattr(settings, 'MAPBOX_ACCESS_TOKEN', ''),
-        help_text=_('required for leaflet map style only'),
+        help_text=_('required for mapbox map style only'),
         blank=True,
         null=True
     )
@@ -34,7 +34,7 @@ class Map(CMSPlugin):
         _('mapbox map id'),
         max_length=20,
         default=getattr(settings, 'MAPBOX_MAP_ID', ''),
-        help_text=_('required for leaflet map style only'),
+        help_text=_('required for mapbox map style only'),
         blank=True,
         null=True
     )
@@ -75,11 +75,11 @@ class Map(CMSPlugin):
     )
 
     def clean(self, *args, **kwargs):
-        if self.style == 'leaflet' and self.mapbox_access_token == '':
+        if self.style == 'mapbox' and self.mapbox_access_token == '':
             raise ValidationError({
                 'mapbox_access_token': _('mapbox access token is required')
                 })
-        if self.style == 'leaflet' and self.mapbox_map_id == '':
+        if self.style == 'mapbox' and self.mapbox_map_id == '':
             raise ValidationError({
                 'mapbox_map_id': _('mapbox map id is required')
                 })

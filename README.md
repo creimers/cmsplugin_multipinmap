@@ -6,7 +6,7 @@
 
 # djangocms multi pin map plugin
 
-A djangocms map plugin that can display multiple pins. Avaliable as google maps or [leaflet](http://leafletjs.com/) style.
+A djangocms map plugin that can display multiple pins. Avaliable as google maps or [mapbox](http://mapboxjs.com/) style with [leaflet](http://leafletjs.com/).
 
 ![preview](preview_leaflet.png)
 ![preview](preview_google.png)
@@ -27,4 +27,4 @@ Works with django 1.7 and 1.8, works with djangocms 3.0 and 3.1.
 
 * Sync the database
 
-* For leaflet, [mapbox](https://www.mapbox.com/) is used as map provider. You can add ``MAPBOX_ACCESS_TOKEN`` and ``MAPBOX_MAP_ID`` default values to ``settings.py``.
+* For mapbox style, you can add ``MAPBOX_ACCESS_TOKEN`` and ``MAPBOX_MAP_ID`` default values to ``settings.py``.
