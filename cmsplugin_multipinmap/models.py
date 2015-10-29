@@ -55,8 +55,10 @@ class Map(CMSPlugin):
     street = models.CharField(
         _('street'),
         max_length=100,
-        help_text=_('address for center of map')
-        )
+        help_text=_('address for center of map'),
+        null=True,
+        blank=True
+    )
     postal_code = models.CharField(_('postal code'), max_length=10)
     city = models.CharField(_('city'), max_length=100)
     lat = models.DecimalField(
@@ -115,7 +117,12 @@ class Pin(models.Model):
     name = models.CharField(_('name'), max_length=50)
     map_plugin = models.ForeignKey(Map, related_name="pins")
 
-    street = models.CharField(_('street'), max_length=100)
+    street = models.CharField(
+        _('street'),
+        max_length=100,
+        null=True,
+        blank=True
+    )
     postal_code = models.CharField(_('postal code'), max_length=10)
     city = models.CharField(_('city'), max_length=100)
     COLOR_CHOICES = (
