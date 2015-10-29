@@ -20,7 +20,8 @@ class MultipinmapTestCase(TestCase, BaseCMSTestCase):
     def setUp(self):
         self.template = get_cms_setting('TEMPLATES')[0][0]
         self.language = settings.LANGUAGES[0][0]
-        self.page = api.create_page('page', self.template, self.language, published=True)
+        self.page = api.create_page(
+            'page', self.template, self.language, published=True)
         self.placeholder = self.page.placeholders.all()[0]
         self.superuser = self.create_superuser()
 
@@ -28,7 +29,8 @@ class MultipinmapTestCase(TestCase, BaseCMSTestCase):
         self.client.logout()
 
     def create_superuser(self):
-        return User.objects.create_superuser(self.su_username, 'email@example.com', self.su_password)
+        return User.objects.create_superuser(
+            self.su_username, 'email@example.com', self.su_password)
 
     def test_add_multipinmap_plugin_google(self):
         street = 'Hongkongstrasse 10'
@@ -47,6 +49,32 @@ class MultipinmapTestCase(TestCase, BaseCMSTestCase):
         pin1 = models.Pin(
             name="greenpeace",
             street=street,
+            postal_code=postal_code,
+            city=city,
+            map_plugin=multipinmap_plugin
+        )
+        pin1.save()
+
+        self.assertTrue(pin1.__str__() == 'greenpeace')
+        self.assertTrue(multipinmap_plugin.__str__() == 'test')
+        self.assertTrue(
+            models.Map.objects.filter(pk=multipinmap_plugin.pk).exists()
+        )
+
+    def test_add_multipinmap_plugin_google_no_street(self):
+        postal_code = '20457'
+        city = 'Hamburg'
+        multipinmap_plugin = api.add_plugin(
+           self.placeholder,
+           cms_plugins.MapPlugin,
+           self.language,
+           name='test',
+           style='google',
+           postal_code=postal_code,
+           city=city
+        )
+        pin1 = models.Pin(
+            name="greenpeace",
             postal_code=postal_code,
             city=city,
             map_plugin=multipinmap_plugin
