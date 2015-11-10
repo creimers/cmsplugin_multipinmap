@@ -11,6 +11,7 @@ from cms.models import CMSPlugin
 
 from geopy.geocoders import Nominatim
 
+
 @python_2_unicode_compatible
 class Map(CMSPlugin):
 
@@ -112,6 +113,7 @@ class Map(CMSPlugin):
         else:
             return 'multipin map'
 
+
 @python_2_unicode_compatible
 class Pin(models.Model):
     name = models.CharField(_('name'), max_length=50)
@@ -125,6 +127,12 @@ class Pin(models.Model):
     )
     postal_code = models.CharField(_('postal code'), max_length=10)
     city = models.CharField(_('city'), max_length=100)
+
+    link = models.URLField(_('link'), blank=True, null=True)
+    link_title = models.URLField(_('link title'), blank=True, null=True)
+
+    description = models.TextField(_('description'), blank=True, null=True)
+
     COLOR_CHOICES = (
         ('redIcon', _('red')),
         ('blueIcon', _('blue')),
