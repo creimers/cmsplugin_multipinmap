@@ -1,10 +1,8 @@
 from django.db import models
-
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
-
+from django.template.loader import render_to_string
 from django.core.exceptions import ValidationError
-
 from django.conf import settings
 
 from cms.models import CMSPlugin
@@ -159,6 +157,21 @@ class Pin(models.Model):
         decimal_places=6,
         max_digits=10
     )
+
+    @property
+    def infowindow(self):
+        context = {}
+        context['name'] = self.name
+        context['street'] = self.street
+        context['postal_code'] = self.postal_code
+        context['city'] = self.city
+        context['link'] = self.link
+        context['link_title'] = self.link_title
+        context['description'] = self.description
+
+        return render_to_string(
+            'cmsplugin_multipinmap/infowindow.html', context
+        )
 
     def clean(self, *args, **kwargs):
         geolocator = Nominatim() 

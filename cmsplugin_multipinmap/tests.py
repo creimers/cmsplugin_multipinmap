@@ -61,6 +61,33 @@ class MultipinmapTestCase(TestCase, BaseCMSTestCase):
             models.Map.objects.filter(pk=multipinmap_plugin.pk).exists()
         )
 
+    def test_render_info_window(self):
+        street = 'Hongkongstrasse 10'
+        postal_code = '20457'
+        city = 'Hamburg'
+        multipinmap_plugin = api.add_plugin(
+           self.placeholder,
+           cms_plugins.MapPlugin,
+           self.language,
+           name='test',
+           style='google',
+           street=street,
+           postal_code=postal_code,
+           city=city
+        )
+        pin1 = models.Pin(
+            name="greenpeace",
+            street=street,
+            postal_code=postal_code,
+            city=city,
+            map_plugin=multipinmap_plugin
+        )
+        pin1.save()
+        infowindow = pin1.infowindow
+
+        self.assertIn('<h5>greenpeace', infowindow)
+
+
     def test_add_multipinmap_plugin_google_no_street(self):
         postal_code = '20457'
         city = 'Hamburg'
