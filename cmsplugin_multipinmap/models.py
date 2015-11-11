@@ -127,7 +127,12 @@ class Pin(models.Model):
     city = models.CharField(_('city'), max_length=100)
 
     link = models.URLField(_('link'), blank=True, null=True)
-    link_title = models.URLField(_('link title'), blank=True, null=True)
+    link_title = models.CharField(
+        _('link title'),
+        max_length=255,
+        blank=True,
+        null=True,
+    )
 
     description = models.TextField(_('description'), blank=True, null=True)
 
@@ -171,7 +176,7 @@ class Pin(models.Model):
 
         return render_to_string(
             'cmsplugin_multipinmap/infowindow.html', context
-        )
+        ).replace('\n', '')
 
     def clean(self, *args, **kwargs):
         geolocator = Nominatim() 
