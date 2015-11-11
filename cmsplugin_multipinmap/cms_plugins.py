@@ -13,7 +13,16 @@ from .models import Map, Pin
 class PinInline(admin.StackedInline):
     model = Pin
     extra = 1
-    fields = ['name', 'street', 'postal_code', 'city', 'pin_color']
+    fields = [
+        'pin_color',
+        'name',
+        'street',
+        'postal_code',
+        'city',
+        'link',
+        'link_title',
+        'description',
+    ]
 
 
 class MapPlugin(CMSPluginBase):
