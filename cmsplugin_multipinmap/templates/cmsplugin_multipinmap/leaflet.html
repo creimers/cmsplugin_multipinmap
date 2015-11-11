@@ -58,7 +58,7 @@
   {% for pin in pins %}
 
     var marker{{pin.pk}} = L.marker([{{pin.lat|safe}}, {{pin.lng|safe}}], {'id': {{pin.pk}}, 'icon': {{pin.pin_color}}}).addTo(map);
-    marker{{pin.pk}}.bindPopup("<h5>{{pin.name|safe}}</h5><div>{{pin.street|safe}}</div><div>{{pin.postal_code}} {{pin.city}}</div>");
+    marker{{pin.pk}}.bindPopup('{{pin.infowindow|safe}}');
     
   {% endfor %}
 

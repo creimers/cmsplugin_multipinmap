@@ -1,0 +1,36 @@
+<style>
+.infowindow-description{
+  margin-top: 5px;
+}
+.infowindow-description p{
+  font-size: 13px;
+  font-weight: lighter;
+  max-width: 325px;
+}
+
+.infowindow-link-button{
+  margin-top: 5px;
+}
+
+.infowindow-link-button a{
+  background-color: blue; 
+  padding: 5px;
+  color: white;
+}
+.infowindow-link-button a:hover{
+  text-decoration: none;
+}
+</style>
+<h5>{{name|safe}}</h5>
+<div>{{street|safe}}</div>
+<div>{{postal_code}} {{city}}</div>
+{% if link %}
+<div class="infowindow-link-button">
+  <a href="{{link}}">{% if link_title %} {{link_title }} {% else %} {{link}} {% endif %}</a>
+</div>
+{% endif %}
+{% if description %}
+<div class="infowindow-description">
+  {{description|linebreaks|safe|truncatewords:40}}
+</div>
+{% endif %}

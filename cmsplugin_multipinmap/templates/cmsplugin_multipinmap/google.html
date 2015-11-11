@@ -25,6 +25,8 @@
       'yellowIcon': 'https://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
     };
 
+    var infowindow = new google.maps.InfoWindow();
+
     {% for pin in pins %}
       
         var marker{{pin.pk}} = new google.maps.Marker({
@@ -33,16 +35,13 @@
             icon: iconMapping['{{pin.pin_color}}']
         });
 
-
-        var infowindow{{pin.pk}} = new google.maps.InfoWindow({
-          content: "<h5>{{pin.name|safe}}</h5><div>{{pin.street|safe}}</div><div>{{pin.postal_code}} {{pin.city}}</div>"
-        });
-
         google.maps.event.addListener(marker{{pin.pk}}, 'click', function() {
-          infowindow{{pin.pk}}.open(map,marker{{pin.pk}});
+          infowindow.setContent('{{pin.infowindow|safe}}');
+          infowindow.open(map, marker{{pin.pk}});
         });
 
     {% endfor %}
+
   }
 
   google.maps.event.addDomListener(window, 'load', initialize);
