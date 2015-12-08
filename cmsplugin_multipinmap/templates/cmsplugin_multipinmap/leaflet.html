@@ -9,7 +9,6 @@
 {% addtoblock "js" %}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-providers/1.1.1/leaflet-providers.js"></script>
 
 <script>
   var greenIcon = L.icon({
@@ -53,7 +52,7 @@
   map.boxZoom.disable();
   map.keyboard.disable();
 
-  L.tileLayer.provider('MapBox', {id: "{{map.mapbox_map_id}}", accessToken: "{{map.mapbox_access_token}}", maxZoom: 18}).addTo(map);
+  L.tileLayer('{{map.leaflet_tile_url}}').addTo(map);
 
   {% for pin in pins %}
 
