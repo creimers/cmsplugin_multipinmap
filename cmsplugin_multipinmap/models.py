@@ -17,26 +17,15 @@ class Map(CMSPlugin):
 
     STYLE_CHOICES = (
         ('google', 'Google Maps'),
-        ('mapbox', 'Mapbox'),
+        ('leaflet', 'Leaflet'),
     )
-    style = models.CharField(_('style'), max_length=25, choices=STYLE_CHOICES)
+    style = models.CharField(
+        _('style'), max_length=25, choices=STYLE_CHOICES, default='leaflet')
 
-    mapbox_access_token = models.CharField(
-        _('mapbox access token'),
-        max_length=80,
-        default=getattr(settings, 'MAPBOX_ACCESS_TOKEN', ''),
-        help_text=_('required for mapbox map style only'),
-        blank=True,
-        null=True
-    )
-    mapbox_map_id = models.CharField(
-        _('mapbox map id'),
-        max_length=20,
-        default=getattr(settings, 'MAPBOX_MAP_ID', ''),
-        help_text=_('required for mapbox map style only'),
-        blank=True,
-        null=True
-    )
+    leaflet_tile_url = models.CharField(
+        _('tile url'),
+        max_length=255,
+        default='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
 
     height = models.IntegerField(
         _('height'),
