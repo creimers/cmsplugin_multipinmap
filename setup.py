@@ -24,7 +24,7 @@ setup(
     ],
     classifiers = [
         'Operating System :: OS Independent',
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Programming Language :: Python',
         'Framework :: Django',
         'Programming Language :: Python :: 2.7',
