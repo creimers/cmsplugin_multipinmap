@@ -41,7 +41,7 @@ class MapPlugin(CMSPluginBase):
         self.render_template = 'cmsplugin_multipinmap/' + template_choices[instance.style]
 
         context.update({
-            'pins': instance.map.pins.all(),
+            'pins': instance.pins.all(),
             'map': instance,
         })
 
