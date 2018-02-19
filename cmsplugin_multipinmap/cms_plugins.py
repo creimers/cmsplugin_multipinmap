@@ -38,11 +38,12 @@ class MapPlugin(CMSPluginBase):
                 'leaflet': 'leaflet.html',
         }
 
-        self.render_template = 'cmsplugin_multipinmap/' + template_choices[instance.style]
+        self.render_template = '/'.join(
+            ['cmsplugin_multipinmap', template_choices[instance.style]])
 
         context.update({
             'pins': instance.pins.all(),
-            'map': instance,
+            'map': instance
         })
 
         return context

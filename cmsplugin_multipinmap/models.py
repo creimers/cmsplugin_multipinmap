@@ -1,19 +1,14 @@
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from django.template.loader import render_to_string
 from django.core.exceptions import ValidationError
-from django.conf import settings
 
 from cms.models import CMSPlugin
 
 from geopy.geocoders import Nominatim
 
 
-@python_2_unicode_compatible
 class Map(CMSPlugin):
-
-    name = models.CharField(_('name'), max_length=50, blank=True, null=True)
 
     STYLE_CHOICES = (
         ('google', 'Google Maps'),
@@ -38,7 +33,7 @@ class Map(CMSPlugin):
         choices=ZOOM_LEVELS,
         default=8
     )
-    
+
     # center address
     street = models.CharField(
         _('street'),
@@ -74,7 +69,7 @@ class Map(CMSPlugin):
                 'mapbox_map_id': _('mapbox map id is required')
                 })
 
-        geolocator = Nominatim() 
+        geolocator = Nominatim()
         location = geolocator.geocode(
             " ".join([self.street, self.postal_code, self.city])
         )
@@ -94,14 +89,7 @@ class Map(CMSPlugin):
             pin.map_plugin = self
             pin.save()
 
-    def __str__(self):
-        if self.name:
-            return self.name
-        else:
-            return 'multipin map'
 
-
-@python_2_unicode_compatible
 class Pin(models.Model):
     name = models.CharField(_('name'), max_length=50)
     map_plugin = models.ForeignKey(Map, related_name="pins")
@@ -168,7 +156,7 @@ class Pin(models.Model):
         ).replace('\n', '')
 
     def clean(self, *args, **kwargs):
-        geolocator = Nominatim() 
+        geolocator = Nominatim()
         location = geolocator.geocode(
             " ".join([self.street, self.postal_code, self.city])
         )

@@ -16,7 +16,7 @@ HELPER_SETTINGS = {
         ('en', gettext('en')),
     ),
     'CMS_LANGUAGES': {
-        ## Customize this
+        # Customize this
         1: [
             {
                 'redirect_on_fallback': True,
