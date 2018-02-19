@@ -19,15 +19,14 @@ setup(
     url='https://github.com/creimers/cmsplugin_multipinmap',
     keywords=['djangocms', 'django', 'map', 'plugin'],
     install_requires=[
-        'geopy==1.10.0',
-        'django-cms>=3.0',
+        'geopy==1.11.0',
+        'django-cms>=3.4',
     ],
     classifiers=[
         'Operating System :: OS Independent',
         'Development Status :: 5 - Production/Stable',
         'Programming Language :: Python',
         'Framework :: Django',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
     ],
