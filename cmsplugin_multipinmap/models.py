@@ -158,7 +158,7 @@ class Pin(models.Model):
     def clean(self, *args, **kwargs):
         geolocator = Nominatim()
         location = geolocator.geocode(
-            " ".join([self.street, self.postal_code, self.city])
+            " ".join([self.street or "", self.postal_code, self.city])
         )
         if location:
             self.lat = location.latitude
