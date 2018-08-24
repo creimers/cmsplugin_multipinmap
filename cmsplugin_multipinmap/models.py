@@ -71,7 +71,7 @@ class Map(CMSPlugin):
 
         geolocator = Nominatim()
         location = geolocator.geocode(
-            " ".join([self.street, self.postal_code, self.city])
+            " ".join([self.street or "", self.postal_code, self.city])
         )
         if location:
             self.lat = location.latitude
