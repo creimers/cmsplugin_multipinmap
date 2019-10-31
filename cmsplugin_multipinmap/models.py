@@ -9,6 +9,14 @@ from cms.models import CMSPlugin
 from geopy.geocoders import Here
 
 
+def get_geolocation(street: str, postal_code: str, city: str) -> dict:
+    geolocator = Here(settings.HERE_APP_ID, settings.HERE_APP_CODE)
+    location = geolocator.geocode(" ".join([street, postal_code, city]))
+    if location:
+        return {"lat": location.latitude, "lng": location.longitude}
+    return {"lat": None, "lng": None}
+
+
 class Map(CMSPlugin):
 
     STYLE_CHOICES = (("google", "Google Maps"), ("leaflet", "Leaflet"))
@@ -53,22 +61,10 @@ class Map(CMSPlugin):
         if self.style == "mapbox" and self.mapbox_map_id == "":
             raise ValidationError({"mapbox_map_id": _("mapbox map id is required")})
 
-        geolocator = Here(settings.HERE_APP_ID, settings.HERE_APP_CODE)
         try:
-            location = geolocator.geocode(
-                " ".join([self.street or "", self.postal_code, self.city])
-            )
-            if location:
-                self.lat = location.latitude
-                self.lng = location.longitude
-            else:
-                raise ValidationError(
-                    {
-                        "street": _("not a valid address"),
-                        "postal_code": _("not a valid address"),
-                        "city": _("not a valid address"),
-                    }
-                )
+            location = get_geolocation(self.street or "", self.postal_code, self.city)
+            self.lat = location["lat"]
+            self.lng = location["lng"]
         except:
             raise ValidationError(
                 {
@@ -132,14 +128,11 @@ class Pin(models.Model):
         ).replace("\n", "")
 
     def clean(self, *args, **kwargs):
-        geolocator = Nominatim()
-        location = geolocator.geocode(
-            " ".join([self.street or "", self.postal_code, self.city])
-        )
-        if location:
-            self.lat = location.latitude
-            self.lng = location.longitude
-        else:
+        try:
+            location = get_geolocation(self.street or "", self.postal_code, self.city)
+            self.lat = location["lat"]
+            self.lng = location["lng"]
+        except:
             raise ValidationError(
                 {
                     "street": _("not a valid address"),
